@@ -1,0 +1,27 @@
+---
+version: '3.5'
+services:
+  app:
+    build: .
+    volumes:
+      - ./src:/app
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.phoenix.entrypoints=http"
+      - "traefik.http.routers.phoenix.rule=Host(`phoenix-app.dev.localhost`)"
+      - "traefik.http.routers.phoenix.middlewares=https-redirect@file"
+      - "traefik.http.routers.phoenix-secure.entrypoints=https"
+      - "traefik.http.routers.phoenix-secure.rule=Host(`phoenix-app.dev.localhost`)"
+      - "traefik.http.routers.phoenix-secure.tls=true"
+      - "traefik.http.services.phoenix.loadbalancer.server.port=4000"
+      - "traefik.docker.network=traefik"
+
+  db:
+    image: postgres:10
+
+networks:
+  default:
+    external:
+      name: traefik
