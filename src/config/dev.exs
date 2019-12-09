@@ -1,10 +1,11 @@
 use Mix.Config
 
 # Configure your database
-config :phoenix_app, PhoenixApp.Repo,
+config :phoenix_app,
+       PhoenixApp.Repo,
        username: "postgres",
        password: "postgres",
-       database: "test_dev",
+       database: "phoenix_app",
        hostname: "db",
        pool_size: 10
 
@@ -14,20 +15,23 @@ config :phoenix_app, PhoenixApp.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :phoenix_app, PhoenixAppWeb.Endpoint,
-  http: [port: 4000],
-  debug_errors: true,
-  code_reloader: true,
-  check_origin: false,
-  watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
-    ]
-  ]
+config :phoenix_app,
+       PhoenixAppWeb.Endpoint,
+       http: [
+         port: 4000
+       ],
+       debug_errors: true,
+       code_reloader: true,
+       check_origin: false,
+       watchers: [
+         node: [
+           "node_modules/webpack/bin/webpack.js",
+           "--mode",
+           "development",
+           "--watch-stdin",
+           cd: Path.expand("../assets", __DIR__)
+         ]
+       ]
 
 # ## SSL Support
 #
@@ -54,15 +58,16 @@ config :phoenix_app, PhoenixAppWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :phoenix_app, PhoenixAppWeb.Endpoint,
-  live_reload: [
-    patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"lib/phoenix_app_web/{live,views}/.*(ex)$",
-      ~r"lib/phoenix_app_web/templates/.*(eex)$"
-    ]
-  ]
+config :phoenix_app,
+       PhoenixAppWeb.Endpoint,
+       live_reload: [
+         patterns: [
+           ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+           ~r"priv/gettext/.*(po)$",
+           ~r"lib/phoenix_app_web/{live,views}/.*(ex)$",
+           ~r"lib/phoenix_app_web/templates/.*(eex)$"
+         ]
+       ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
