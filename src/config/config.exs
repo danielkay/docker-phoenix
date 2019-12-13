@@ -7,15 +7,21 @@
 # General application configuration
 use Mix.Config
 
-config :phoenix_app,
-  ecto_repos: [PhoenixApp.Repo]
+config :phoenix_api,
+  ecto_repos: [PhoenixApi.Repo],
+  generators: [binary_id: true]
+
+# Add support for microseconds at the DB level
+# this avoids having to configure it on every migration file
+config :phoenix_api, PhoenixApi.Repo,
+       migration_timestamps: [type: :utc_datetime_usec]
 
 # Configures the endpoint
-config :phoenix_app, PhoenixAppWeb.Endpoint,
+config :phoenix_api, PhoenixApiWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "WfrC+9+PiYWqGbuiFwhxtAXBVUU+90VrVv4l6yq6g1KAt4CaFAdNPnPK/BNDyYXH",
-  render_errors: [view: PhoenixAppWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: PhoenixApp.PubSub, adapter: Phoenix.PubSub.PG2]
+  secret_key_base: "c9ZFXxLkvWS3Ms13DpH4EnmmIlQ0W8vMimHuioCBnMLAlQLa/E0kOA+F04Dnl5l7",
+  render_errors: [view: PhoenixApiWeb.ErrorView, accepts: ~w(json)],
+  pubsub: [name: PhoenixApi.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -1,4 +1,4 @@
-defmodule PhoenixApp.DataCase do
+defmodule PhoenixApi.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule PhoenixApp.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use PhoenixAppWeb.DataCase, async: true`, although
+  by setting `use PhoenixApiWeb.DataCase, async: true`, although
   this option is not recommendded for other databases.
   """
 
@@ -18,20 +18,20 @@ defmodule PhoenixApp.DataCase do
 
   using do
     quote do
-      alias PhoenixApp.Repo
+      alias PhoenixApi.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import PhoenixApp.DataCase
+      import PhoenixApi.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PhoenixApp.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PhoenixApi.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(PhoenixApp.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PhoenixApi.Repo, {:shared, self()})
     end
 
     :ok
