@@ -20,6 +20,8 @@ services:
 
   db:
     image: postgres:10
+    ports:
+      - "3030:5432"
 
 networks:
   default:
