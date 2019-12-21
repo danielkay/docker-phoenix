@@ -7,6 +7,9 @@ services:
       - ./src:/app
     depends_on:
       - db
+    expose:
+      - 4369
+      - 9000
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.phoenix.entrypoints=http"
