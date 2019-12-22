@@ -14,12 +14,3 @@ RUN mix local.hex --force \
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
-
-# Expose web aoo oort
-EXPOSE 4000
-# Expose epmd port
-EXPOSE 4369
-# Exoose elixir node port
-EXPOSE 9000
-
-CMD ["elixir", "--erl", "-setcookie COOKIE -kernel inet_dist_listen_min 9000 inet_dist_listen_max 9000 -name phoenix@127.0.0.1", "-S", "/usr/local/bin/mix", "phx.server"]
