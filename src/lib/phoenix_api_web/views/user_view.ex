@@ -15,4 +15,15 @@ defmodule PhoenixApiWeb.UserView do
       email: user.email,
       is_active: user.is_active}
   end
+
+  def render("login.json", %{user: user}) do
+    %{
+      data: %{
+        user: %{
+          id: user.id,
+          email: user.email
+        }
+      }
+    }
+  end
 end

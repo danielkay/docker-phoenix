@@ -40,4 +40,22 @@ defmodule PhoenixApiWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def login(conn, %{"email" => email, "password" => password}) do
+    case PhoenixApi.Auth.authenticate_user(email, password) do
+      {:ok, user} ->
+        conn
+        |> put_session(:current_user_id, user.id)
+        |> put_status(:ok)
+        |> put_view(PhoenixApiWeb.UserView)
+        |> render("login.json", user: user)
+
+      {:error, message} ->
+        conn
+        |> delete_session(:current_user_id)
+        |> put_status(:unauthorized)
+        |> put_view(PhoenixApiWeb.ErrorView)
+        |> render("401.json", message: message)
+    end
+  end
 end

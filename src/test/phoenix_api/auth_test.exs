@@ -62,5 +62,12 @@ defmodule PhoenixApi.AuthTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Auth.change_user(user)
     end
+
+    test "authenticate_user/2 authenticate the user" do
+      user = user_fixture()
+      assert {:error, "Wrong email or password"} = Auth.authenticate_user("Wrong email", "")
+      assert {:ok, authenticated_user} = Auth.authenticate_user(user.email, @valid_attrs.password)
+      assert %{user | password: nil} == authenticated_user
+    end
   end
 end
