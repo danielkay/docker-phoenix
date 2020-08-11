@@ -5,7 +5,21 @@ defmodule PhoenixApi.Application do
 
   use Application
 
+  alias PhoenixApi.Metrics.{
+    PhoenixInstrumenter,
+    PipelineInstrumenter,
+    RepoInstrumenter,
+    PrometheusExporter
+  }
+
   def start(_type, _args) do
+    # Start instrumentation
+    PhoenixInstrumenter.setup()
+    PipelineInstrumenter.setup()
+    RepoInstrumenter.setup()
+    Prometheus.Registry.register_collector(:prometheus_process_collector)
+    PrometheusExporter.setup()
+
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository

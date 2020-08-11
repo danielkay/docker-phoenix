@@ -20,7 +20,15 @@ defmodule PhoenixApi.MixProject do
   def application do
     [
       mod: {PhoenixApi.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [
+        :prometheus_ex,
+        :prometheus_ecto,
+        :prometheus_plugs,
+        :prometheus_phoenix,
+        :prometheus_process_collector,
+        :logger,
+        :runtime_tools
+      ]
     ]
   end
 
@@ -41,7 +49,12 @@ defmodule PhoenixApi.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:bcrypt_elixir, "~> 2.0"}
+      {:bcrypt_elixir, "~> 2.0"},
+      {:prometheus_ex, "~> 3.0"},
+      {:prometheus_ecto, "~> 1.4.1"},
+      {:prometheus_plugs, "~> 1.1.1"},
+      {:prometheus_phoenix, "~> 1.3.0"},
+      {:prometheus_process_collector, "~> 1.0"}
     ]
   end
 

@@ -11,10 +11,56 @@ config :phoenix_api,
   ecto_repos: [PhoenixApi.Repo],
   generators: [binary_id: true]
 
+config :prometheus, PhoenixApi.PhoenixInstrumenter,
+  controller_call_labels: [:controller, :action],
+  duration_buckets: [
+    10,
+    25,
+    50,
+    100,
+    250,
+    500,
+    1000,
+    2500,
+    5000,
+    10_000,
+    25_000,
+    50_000,
+    100_000,
+    250_000,
+    500_000,
+    1_000_000,
+    2_500_000,
+    5_000_000,
+    10_000_000
+  ],
+  registry: :default,
+  duration_unit: :microseconds
+
+config :prometheus, PhoenixApi.PipelineInstrumenter,
+  labels: [:status_class, :method, :host, :scheme, :request_path],
+  duration_buckets: [
+    10,
+    100,
+    1_000,
+    10_000,
+    100_000,
+    300_000,
+    500_000,
+    750_000,
+    1_000_000,
+    1_500_000,
+    2_000_000,
+    3_000_000
+  ],
+  registry: :default,
+  duration_unit: :microseconds
+
 # Add support for microseconds at the DB level
 # this avoids having to configure it on every migration file
 config :phoenix_api, PhoenixApi.Repo,
-       migration_timestamps: [type: :utc_datetime_usec]
+  migration_timestamps: [type: :utc_datetime_usec],
+  loggers: [PhoenixApi.RepoInstrumenter]
 
 # Configures the endpoint
 config :phoenix_api, PhoenixApiWeb.Endpoint,

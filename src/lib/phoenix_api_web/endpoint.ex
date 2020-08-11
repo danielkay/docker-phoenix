@@ -24,6 +24,9 @@ defmodule PhoenixApiWeb.Endpoint do
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
+  plug PhoenixApi.Metrics.PrometheusExporter
+  plug PhoenixApi.Metrics.PipelineInstrumenter
+
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],

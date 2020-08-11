@@ -16,7 +16,7 @@ defmodule PhoenixApiWeb.Router do
   end
 
   scope "/api", PhoenixApiWeb do
-    pipe_through [:api, :api_auth]
+    pipe_through [:api]
     resources "/users", UserController, except: [:new, :edit]
   end
 

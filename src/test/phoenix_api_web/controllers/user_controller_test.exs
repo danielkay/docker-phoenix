@@ -40,12 +40,13 @@ defmodule PhoenixApiWeb.UserControllerTest do
   describe "index" do
     test "lists all users", %{conn: conn, current_user: current_user} do
       conn = get(conn, Routes.user_path(conn, :index))
+
       assert json_response(conn, 200)["data"] == [
-              %{
-                "id" => current_user.id,
-                "email" => current_user.email,
-                "is_active" => current_user.is_active
-              }
+               %{
+                 "id" => current_user.id,
+                 "email" => current_user.email,
+                 "is_active" => current_user.is_active
+               }
              ]
     end
   end
@@ -106,7 +107,10 @@ defmodule PhoenixApiWeb.UserControllerTest do
   end
 
   describe "login user" do
-    test "renders user when valid credentials submitted", %{conn: conn, current_user: current_user} do
+    test "renders user when valid credentials submitted", %{
+      conn: conn,
+      current_user: current_user
+    } do
       conn =
         post(
           conn,
@@ -117,10 +121,10 @@ defmodule PhoenixApiWeb.UserControllerTest do
         )
 
       assert json_response(conn, 200)["data"] == %{
-                "user" => %{
-                  "id" => current_user.id,
-                  "email" => current_user.email
-                }
+               "user" => %{
+                 "id" => current_user.id,
+                 "email" => current_user.email
+               }
              }
     end
 

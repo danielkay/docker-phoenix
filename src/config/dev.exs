@@ -5,7 +5,7 @@ config :phoenix_api, PhoenixApi.Repo,
   username: "postgres",
   password: "postgres",
   database: "phoenix_api_dev",
-  hostname: "db",
+  hostname: "docker-phoenix_db_1",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
