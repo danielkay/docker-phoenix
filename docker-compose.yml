@@ -4,6 +4,8 @@ services:
   app:
     build: .
     command: "elixir --erl '-setcookie COOKIE -name phoenix@127.0.0.1' -S /usr/local/bin/mix phx.server"
+    ports:
+      - "127.0.0.1:4000:4000"
     volumes:
       - ./src:/app
     depends_on:
@@ -21,10 +23,11 @@ services:
 
   db:
     image: postgres:10
-    ports:
-      - "3030:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=phoenix_api_dev
 
 networks:
   default:
-    external:
-      name: traefik
+    name: docker-phoenix
